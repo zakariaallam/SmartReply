@@ -30,7 +30,7 @@
             src="https://i.pravatar.cc/40"
             class="rounded-full"
           />
-          <span>Ahmed Atajer</span>
+          <span>{{ user?.first_name }}</span>
         </div>
       </div>
 
@@ -87,9 +87,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import StatCard from '../components/dashboard/StatCard.vue'
+import api from '@/services/api'
 
+const user = ref(null)
 const messages = ref([
   {
     id: 1,
@@ -104,4 +106,18 @@ const messages = ref([
     avatar: 'https://i.pravatar.cc/40?img=2'
   }
 ])
+
+const loadeDashboard = async ()=> {
+try{
+  const res = await api.get('/')
+  user.value = res.data
+  console.log(user)
+}catch(error){
+   console.log(error)
+}
+}
+
+onMounted(() =>{
+  loadeDashboard()
+})
 </script>

@@ -15,7 +15,7 @@ class UserController extends Controller
 {
     public function register(Request $request)
     {
-        dd($request->all());
+        
         $request->validate([
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
@@ -24,7 +24,7 @@ class UserController extends Controller
             'business_name' => 'required|string'
         ]);
 
-        $role = Role::where('name', 'user')->first();
+        $role = Role::where('name', 'owner')->first();
         if (!$role)
             return response()->json(['message' => 'Role not found'], 500);
         DB::beginTransaction();
@@ -44,8 +44,9 @@ class UserController extends Controller
 
             DB::commit();
             return response()->json([
+                'success' => true,
                 'message' => 'create success',
-                'user' => $user->only()
+                'user' => $user
             ], 201);
         } catch (Exception $e) {
             DB::rollback();

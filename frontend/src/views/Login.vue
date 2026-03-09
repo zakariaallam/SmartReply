@@ -37,12 +37,15 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import api from '@/services/api'
 
 const form = reactive({
   email: '',
   password: ''
 })
+
+const router = useRouter()
 
 const login = async () => {
 
@@ -52,6 +55,7 @@ const login = async () => {
 
     localStorage.setItem('token', res.data.token)
 
+    router.push('/')
     console.log(res.data)
 
   } catch (err) {

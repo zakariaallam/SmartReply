@@ -7,7 +7,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
+Route::get('/', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
@@ -30,3 +30,6 @@ Route::delete('service/{id}',[ServiceController::class,'delete'])->middleware('a
 // message 
 Route::get('message',[MessageController::class,'index'])->middleware('auth:sanctum');
 Route::post('message',[MessageController::class,'send'])->middleware('auth:sanctum');
+
+// whatsapp 
+Route::post('/webhook/whatsapp',[WhatsAppController::class,'receive']);
