@@ -50,6 +50,7 @@
 
 <script setup>
 import { reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import api from '@/services/api'
 
 const form = reactive({
@@ -61,14 +62,20 @@ const form = reactive({
   password_confirmation: ''
 })
 
+const route = useRouter()
+
 const register = async () => {
 
   try {
 
     const res = await api.post('/register', form)
 
-    console.log(res)
-
+    
+    if(res.data.success){
+      route.push('/Login')
+    }else{
+      alert(res.data.message)
+    }
   } catch (error) {
 
     console.log(error.response.data)

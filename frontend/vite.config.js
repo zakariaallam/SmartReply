@@ -25,6 +25,9 @@ export default defineConfig({
       cert: fs.readFileSync('/etc/certs/cert.pem'),
     },
     port: 5173,
-    host: true
+    host: true,
+    watch: {
+      usePolling: true
+    }
   }
 })
