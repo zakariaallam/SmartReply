@@ -2,3 +2,4 @@ Caddyfile
 cert.pem
 docker-compose.yml
 key.pem
+caddy-root.pem

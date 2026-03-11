@@ -20,14 +20,15 @@ export default defineConfig({
   },
 
   server: {
-    https: {
-      key: fs.readFileSync('/etc/certs/key.pem'),
-      cert: fs.readFileSync('/etc/certs/cert.pem'),
-    },
+    // https: {
+    //   key: fs.readFileSync('/etc/certs/key.pem'),
+    //   cert: fs.readFileSync('/etc/certs/cert.pem'),
+    // },
+    https:false,
     port: 5173,
     host: true,
-    watch: {
-      usePolling: true
-    }
+    // watch: {
+    //   usePolling: true
+    // }
   }
 })

@@ -4,6 +4,7 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WhatsAppController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +34,7 @@ Route::post('message',[MessageController::class,'send'])->middleware('auth:sanct
 
 // whatsapp 
 Route::post('/webhook/whatsapp',[WhatsAppController::class,'receive']);
+// Route::post('/webhook/whatsapp', function () {
+//     file_put_contents(storage_path('webhook.txt'), "working");
+//     return response()->json(['ok' => true]);
+// });
