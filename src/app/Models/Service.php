@@ -16,4 +16,7 @@ class Service extends Model
     public function business(){
         return $this->belongsTo(Businesse::class);
     }
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
+    }
 }

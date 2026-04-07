@@ -5,8 +5,15 @@
     <ul class="space-y-3">
       <li><router-link to="/dashboard">Dashboard</router-link></li>
       <li><router-link to="/services">Services</router-link></li>
+      <li><router-link to="/Appointment">Appointment</router-link></li>
       <li><router-link to="/messages">Messages</router-link></li>
       <li><router-link to="/settings">Settings</router-link></li>
     </ul>
   </div>
 </template>
+
+<script>
+    export default{
+      name: "Sidebar"
+    }
+</script>

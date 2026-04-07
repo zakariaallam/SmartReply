@@ -14,7 +14,7 @@ class WhatsAppController extends Controller
         // Log::info('Webhook received', $request->all());
         $message = $request->input('Body');
         $from = $request->input('From');
-        $number = str_replace('whatsapp:',"",$from);
+        $number = str_replace('whatsapp:+212',"",$from);
         $business = Businesse::where('phone', $number)->first() ;
         if(!$business){
             return response()->json(['success' => false]);
@@ -22,7 +22,9 @@ class WhatsAppController extends Controller
         $aiService = new OpenRouterAIService();
         $replay = $aiService->regenerateResponse($business,$message);
 
-        $this->sendMessage($from,$replay);
+        $isappointment = $aiService->checkTypeMessage($replay,$number);
+
+        $this->sendMessage($from,$isappointment);
 
         return response()->json(['success' => true]);
         // return response('OK',200);

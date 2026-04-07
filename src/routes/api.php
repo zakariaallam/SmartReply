@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WhatsAppController;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +19,8 @@ Route::get('/', function (Request $request) {
 Route::post('register',[UserController::class,'register']);
 Route::post('login',[UserController::class,'login']);
 Route::post('logout',[UserController::class,'logout'])->middleware('auth:sanctum');
+// User 
+Route::get('user',[UserController::class,'getUser'])->middleware('auth:sanctum');
 
 // business 
 Route::get('business',[BusinessController::class,'show'])->middleware('auth:sanctum');
@@ -34,7 +39,10 @@ Route::post('message',[MessageController::class,'send'])->middleware('auth:sanct
 
 // whatsapp 
 Route::post('/webhook/whatsapp',[WhatsAppController::class,'receive']);
-// Route::post('/webhook/whatsapp', function () {
-//     file_put_contents(storage_path('webhook.txt'), "working");
-//     return response()->json(['ok' => true]);
-// });
+
+// Google OAuth 
+Route::get('/auth/redirect/{provide}',[SocialiteController::class,'redirect']);
+Route::get('/auth/callback/{provider}',[SocialiteController::class,'callback']);
+
+// Appointment
+Route::get('/appointment',[AppointmentController::class,'index']);
