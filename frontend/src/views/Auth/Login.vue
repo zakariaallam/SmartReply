@@ -1,6 +1,6 @@
 <template>
   <div class="w-full text-center">
-    <h1 class="text-[22px] font-bold text-[#0E0F12] mb-3">Fresha pour les clients</h1>
+    <h1 class="text-[22px] font-bold text-[#0E0F12] mb-3">zakariaApp pour les clients</h1>
     <p class="text-[14px] text-gray-500 leading-snug mb-8">
       Créez un compte ou connectez-vous pour réserver et gérer vos rendez-vous.
     </p>
@@ -23,7 +23,7 @@
       <div class="flex-grow border-t border-gray-100"></div>
     </div>
 
-     <form @submit.prevent="login">
+     <form @submit.prevent="loginuser">
 
       <p class="bg-red-300 text-center mb-2 text-red-500">{{ error }}</p>
       <div class="mb-4">
@@ -41,7 +41,7 @@
 
         <p class="text-center text-sm mb-6">
           Don't have an account?
-          <router-link to="/auth/register" class="text-blue-500 font-semibold">
+          <router-link to="/auth" class="text-blue-500 font-semibold">
             Register
           </router-link>
         </p>
@@ -56,10 +56,9 @@
 </template>
 
 <script setup>
-import { authState } from '@/store'
 import { reactive , ref } from 'vue'
 import { useRouter } from 'vue-router'
-import api from '@/services/api'
+import { login } from '@/services/Auth'
 
 const form = reactive({
   email: '',
@@ -70,36 +69,22 @@ const error = ref('')
 
 const router = useRouter()
 
-const loginWithGoogle = async () => {
+const loginWithGoogle = () => {
   try{
-   window.location.href = "http://localhost/api/auth/redirect/google"
+    // const google = await api.get('/auth/redirect/google')
+   window.location.href = "http://localhost/api/auth/redirect/google "
   }catch(err){
     console.log(err)
   }
 }
 
-const login = async () => {
+const loginuser = async () => {
 
-  try {
 
-    const res = await api.post('/login', form)
+  const success = await login(form)
 
-    
-    if(res.data.status){
-    localStorage.setItem('token', res.data.token)
-    
-    authState.isLoggedIn = true
-    authState.user = res.data.user
+  if(success){
     router.push('/')
-    }else{
-      console.log('error in get data')
-    }
-
-  }catch (err) {
-
-    console.log(err.response)
-    error.value = err.response?.data?.message
-
   }
 
 }

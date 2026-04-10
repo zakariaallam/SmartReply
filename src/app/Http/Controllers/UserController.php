@@ -16,10 +16,10 @@ class UserController extends Controller
 {
 
     public function getUser(){
-        $user = Auth::user();
+        $user = auth('api')->user();
         return response()->json([
             'status' => true,
-            'data' => new UserDTO($user),
+            'user' => $user,
         ]);
     }
 
@@ -60,15 +60,13 @@ class UserController extends Controller
             'password' => 'required|string'
         ]);
 
-        if (!Auth::attempt($validate))
+        if (!$token = auth('api')->attempt($validate) )
             return response()->json(['message' => 'email or password non correcte'], 401);
 
-        $user = User::where('email', $request->email)->first();
-        $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json([
             'status' => true,
             'message' => 'login successfully',
-            'user' => $user->only(['id', 'first_name', 'last_name', 'email', 'role_id']),
+            'user' => auth('api')->user(),
             'token' => $token
         ], 200);
     }

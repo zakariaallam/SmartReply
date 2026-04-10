@@ -18,24 +18,24 @@ Route::get('/', function (Request $request) {
 // Auth
 Route::post('register',[UserController::class,'register']);
 Route::post('login',[UserController::class,'login']);
-Route::post('logout',[UserController::class,'logout'])->middleware('auth:sanctum');
+Route::post('logout',[UserController::class,'logout'])->middleware('auth:api');
 // User 
-Route::get('user',[UserController::class,'getUser'])->middleware('auth:sanctum');
+Route::get('user',[UserController::class,'getUser'])->middleware('auth:api');
 
 // business 
-Route::get('business',[BusinessController::class,'show'])->middleware('auth:sanctum');
-Route::put('business',[BusinessController::class,'update'])->middleware('auth:sanctum');
+Route::get('business',[BusinessController::class,'show'])->middleware('auth:api');
+Route::put('business',[BusinessController::class,'update'])->middleware('auth:api');
 
 // service 
-Route::get('service',[ServiceController::class,'create'])->middleware('auth:sanctum');
-Route::post('service',[ServiceController::class,'store'])->middleware('auth:sanctum');
-Route::get('service/{id}',[ServiceController::class,'edit'])->middleware('auth:sanctum');
-Route::put('service/{id}',[ServiceController::class,'update'])->middleware('auth:sanctum');
-Route::delete('service/{id}',[ServiceController::class,'delete'])->middleware('auth:sanctum');
+Route::get('service',[ServiceController::class,'create'])->middleware('auth:api');
+Route::post('service',[ServiceController::class,'store'])->middleware('auth:api');
+Route::get('service/{id}',[ServiceController::class,'edit'])->middleware('auth:api');
+Route::put('service/{id}',[ServiceController::class,'update'])->middleware('auth:api');
+Route::delete('service/{id}',[ServiceController::class,'delete'])->middleware('auth:api');
 
 // message 
-Route::get('message',[MessageController::class,'index'])->middleware('auth:sanctum');
-Route::post('message',[MessageController::class,'send'])->middleware('auth:sanctum');
+Route::get('message',[MessageController::class,'index'])->middleware('auth:api');
+Route::post('message',[MessageController::class,'send'])->middleware('auth:api');
 
 // whatsapp 
 Route::post('/webhook/whatsapp',[WhatsAppController::class,'receive']);

@@ -69,38 +69,24 @@
 <script setup>
 import Hero from '@/components/dashboard/Hero.vue';
 import Navbar from '@/components/dashboard/Navbar.vue';
-import { ref } from 'vue'
+import api from '@/services/api';
+// import { onMounted, ref } from 'vue'
 
-const places = ref([
-  {
-    id: 1,
-    name: "Barber Shop",
-    location: "Casablanca",
-    rating: 4.9,
-    image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70"
-  },
-  {
-    id: 2,
-    name: "Beauty Salon",
-    location: "Rabat",
-    rating: 4.8,
-    image: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e"
-  },
-  {
-    id: 3,
-    name: "Spa Center",
-    location: "Marrakech",
-    rating: 4.7,
-    image: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6"
-  },
-  {
-    id: 4,
-    name: "Hair Studio",
-    location: "Agadir",
-    rating: 5.0,
-    image: "https://images.unsplash.com/photo-1519415943484-9fa1873496d4"
-  }
-])
+// const recommended = ref([])
+
+// const fetshRecommended = async () =>{
+//   try{
+//   const res = await api.get('/business')
+//   recommended.value = res.data
+//   console.log(res.data)
+//   }catch(err){
+//     console.log(err)
+//   }
+// }
+
+// onMounted (() => {
+//     fetshRecommended()
+//   })
 </script>
 
 

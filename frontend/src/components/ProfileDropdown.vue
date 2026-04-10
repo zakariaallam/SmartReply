@@ -2,7 +2,7 @@
   <div class="relative group">
     <!-- User Avatar Button -->
     <button class="bg-[#F2F2FF] text-blue-600 font-bold border border-[#EBEBF4] rounded-full px-3 py-2 flex items-center space-x-2 transition cursor-pointer">
-      <span class="text-[13px] tracking-wide">hh</span>
+      <span class="text-[13px] tracking-wide">{{ userInitials }}</span>
       <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </button>
 
@@ -65,11 +65,22 @@
   </div>
 </template>
 
-<script>
-import { authState } from '@/store';
-import { ref } from 'vue';
+<script setup>
+import { computed } from 'vue'
+import { authState } from '@/store'
 
-const userName = ref('')
-userName.value = authState.user?.first_name
-console.log(userName)
+const userName = computed(() => {
+  if (!authState.user) return ''
+  return `${authState.user.first_name} ${authState.user.last_name}`
+})
+
+
+const userInitials = computed(() => {
+  if (!authState.user) return ''
+
+  const first = authState.user.first_name?.[0] || ''
+  const last = authState.user.last_name?.[0] || ''
+
+  return (first + last).toUpperCase()
+})
 </script>

@@ -33,6 +33,9 @@ class BusinessController extends Controller
     }
 
     public function show(){
-        return response()->json(Auth::user()->business);
+        return response()->json([
+            'status' => true,
+            'data' => Auth::user()->business
+        ]);
     }
 }
