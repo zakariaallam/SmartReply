@@ -52,6 +52,51 @@ class UserController extends Controller
             ], 201);
         
     }
+    public function ownerRegister(Request $request)
+    {
+        
+        $request->validate([
+            'first_name' => 'required|string|min:3',
+            'last_name' => 'required|string|min:3',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'business_name' => 'required|string|min:3'
+        ]);
+
+        $role = Role::where('name', 'owner')->first();
+        if (!$role)
+            return response()->json(['message' => 'Role not found'], 500);
+        
+        try{
+            DB::beginTransaction();
+
+            $user = User::create([
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role_id' => $role->id,
+            ]);
+
+            $business = Businesse::created([
+                'name' => $request->bussiness_name
+            ]);
+            DB::commit();
+        }catch(Exception $e){
+            DB::rollBack();
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 401);
+        }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'create success',
+                'user' => $user
+            ], 201);
+        
+    }
 
     public function login(Request $request)
     {
@@ -71,11 +116,13 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        $request->user()->currentAccessToken()->delete();
+        auth('api')->logout();
+
         return response()->json([
-            'message' => 'logout Successfoly'
+            'status' => true,
+            'message' => 'Logged out successfully'
         ]);
     }
 }

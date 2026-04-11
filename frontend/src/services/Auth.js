@@ -37,7 +37,7 @@ export const login = async (Credential) => {
         authState.user = res.data.user
         authState.isLoggedIn = true
 
-        return true
+        return res.data
     }catch(err){
         authState.error = err.response?.data?.message || 'token fialed'
         return false
@@ -49,6 +49,7 @@ export const login = async (Credential) => {
 export const logout = async () =>{
     try{
         const res = await api.get('/logout')
+        console.log(res)
     }catch(e){
         console.log(e)
     }

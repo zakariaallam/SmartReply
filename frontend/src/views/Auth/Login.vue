@@ -83,8 +83,12 @@ const loginuser = async () => {
 
   const success = await login(form)
 
-  if(success){
-    router.push('/')
+  if(success.status){
+    if(success.user.role_id == 3){
+      router.push('/')
+    }else if(success.user.role_id == 2){
+       router.push('/business-home')
+    }
   }
 
 }

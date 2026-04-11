@@ -19,5 +19,4 @@ class UserDTO{
         $this->role = $user->role()->name;
     }
 
-    
 }
