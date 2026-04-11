@@ -21,8 +21,8 @@ const routes = [
     children:[
       {path: '' , redirect: '/business/home'},
       {path: 'home' , name: 'business-home' , component: () => import('../views/OwnerHomme.vue')},
-      {path: 'hours' , name: 'business-houre' , component: () => import('../views/business/BusineesHours.vue')},
       { path: 'calendar', component: () => import('../views/business/BusinessCalendar.vue') },
+      {path: 'hours' , name: 'business-houre' , component: () => import('../views/business/BusineesHours.vue')},
       { path: 'team', name: 'business-team', component: () => import('../views/business/BusinessTeam.vue') },
       { path: 'sales', name: 'business-sales', component: () => import('../views/business/BusinessSales.vue') },
       { path: 'clients', name: 'business-clients', component: () => import('../views/business/BusinessClients.vue') },

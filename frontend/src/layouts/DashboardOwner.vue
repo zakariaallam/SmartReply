@@ -98,7 +98,7 @@
         </router-link>
 
         <!-- Calendar -->
-        <router-link to="/business/hours" 
+        <router-link to="/business/calendar" 
           class="w-11 h-11 rounded-xl flex items-center justify-center transition-colors relative"
           active-class="bg-[#6b4cff] text-white"
           :class="$route.path.includes('/business/calendar') ? 'bg-[#6b4cff] text-white' : 'text-gray-400 hover:text-white'">
