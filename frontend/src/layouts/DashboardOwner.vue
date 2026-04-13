@@ -155,11 +155,19 @@
         </a>
 
         <!-- Reports (Chart) -->
-        <a href="#" class="w-11 h-11 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors">
+        <!-- <a href="#" class="w-11 h-11 rounded-xl flex items-center justify-center text-gray-400 hover:text-white transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
           </svg>
-        </a>
+        </a> -->
+        <router-link to="/business/reports" 
+          class="w-11 h-11 rounded-xl flex items-center justify-center transition-colors relative"
+          active-class="bg-[#6b4cff] text-white"
+          :class="$route.path.includes('/business/reports') ? 'bg-[#6b4cff] text-white' : 'text-gray-400 hover:text-white'">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+          </svg>
+        </router-link>
 
         <!-- Hours (Clock) -->
         <router-link to="/business/hours" 

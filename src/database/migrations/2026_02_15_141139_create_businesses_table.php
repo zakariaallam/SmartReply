@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('address')->nullable();
             $table->string('phone')->nullable();
+            $table->string('cover_url')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('language')->default('fr');
             $table->jsonb('working_hours')->nullable();

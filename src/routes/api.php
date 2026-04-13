@@ -26,9 +26,10 @@ Route::get('user',[UserController::class,'getUser'])->middleware('auth:api');
 // business 
 Route::get('business',[BusinessController::class,'show'])->middleware('auth:api');
 Route::put('business',[BusinessController::class,'update'])->middleware('auth:api');
+Route::post('upload/image',[BusinessController::class,'uploadImage'])->middleware('auth:api');
 
 // service 
-Route::get('service',[ServiceController::class,'create'])->middleware('auth:api');
+Route::get('service',[ServiceController::class,'index'])->middleware('auth:api');
 Route::post('service',[ServiceController::class,'store'])->middleware('auth:api');
 Route::get('service/{id}',[ServiceController::class,'edit'])->middleware('auth:api');
 Route::put('service/{id}',[ServiceController::class,'update'])->middleware('auth:api');

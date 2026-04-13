@@ -41,8 +41,8 @@
 </template>
 
 <script setup>
+import api from '@/services/api';
 import { ref, onMounted } from 'vue';
-import { api } from '../../store.js';
 
 const loading = ref(true);
 const saving = ref(false);

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '@/views/DashboardView.vue'
+import { authState } from '@/store'
 
 const routes = [
   { path: '/', component: DashboardView },
@@ -18,6 +19,7 @@ const routes = [
   {
     path: '/business',
     component: () => import('../layouts/DashboardOwner.vue'),
+    meta: { requiresAuth: true },
     children:[
       {path: '' , redirect: '/business/home'},
       {path: 'home' , name: 'business-home' , component: () => import('../views/OwnerHomme.vue')},
@@ -41,4 +43,16 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const isLoggedIn = authState.isLoggedIn
+
+  if (to.meta.requiresAuth && !isLoggedIn) {
+    next('/auth/login')
+  } else if (to.path === '/auth/login' && isLoggedIn) {
+    next('/business/home')
+  } else {
+    next()
+  }
 })

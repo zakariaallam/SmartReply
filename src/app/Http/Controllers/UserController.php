@@ -78,8 +78,9 @@ class UserController extends Controller
                 'role_id' => $role->id,
             ]);
 
-            $business = Businesse::created([
-                'name' => $request->bussiness_name
+             Businesse::create([
+                'name' => $request->business_name ,
+                'user_id' => $user->id
             ]);
             DB::commit();
         }catch(Exception $e){

@@ -2,29 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Businesse;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ServiceController extends Controller
 {
-    public function create(){
-        return response()->json(['message' => 'page create service']);
+    public function index(){
+        $user = auth('api')->user();
+        $business = Businesse::where('user_id',$user->id)->first();
+        $services = Service::where('business_id',$business->id)->get();
+        return response()->json([
+            'status' => true,
+            'service' => $services,
+            'message' => 'all services'
+            ]);
     }
 
     public function store(Request $request){
          $validate =  $request->validate([
             'name' => 'required|string|min:4',
             'price' => 'required|integer',
-            'description' => 'string'
+            'description' => 'nullable|string'
          ]);
-
-         $business = Auth::user()->business;
+         $business = auth('api')->user()->business;
          $validate['business_id'] = $business->id;
+        //  return response()->json('test');
 
          $service = Service::create($validate);
 
          return response()->json([
+            'status' => true,
             'message' => 'service created successfully',
             'service' => $service
          ],201);

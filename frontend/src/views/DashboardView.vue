@@ -70,23 +70,23 @@
 import Hero from '@/components/dashboard/Hero.vue';
 import Navbar from '@/components/dashboard/Navbar.vue';
 import api from '@/services/api';
-// import { onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
-// const recommended = ref([])
+const recommended = ref([])
 
-// const fetshRecommended = async () =>{
-//   try{
-//   const res = await api.get('/business')
-//   recommended.value = res.data
-//   console.log(res.data)
-//   }catch(err){
-//     console.log(err)
-//   }
-// }
+const fetshRecommended = async () =>{
+  try{
+  const res = await api.get('/business')
+  recommended.value = res.data
+  console.log(res.data)
+  }catch(err){
+    console.log(err)
+  }
+}
 
-// onMounted (() => {
-//     fetshRecommended()
-//   })
+onMounted (() => {
+    fetshRecommended()
+  })
 </script>
 
 

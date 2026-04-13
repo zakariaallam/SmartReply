@@ -2,12 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Businesse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BusinessController extends Controller
 {
-    public function update(Request $request){
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'image' => 'required|image|max:2048'
+        ]);
+
+
+        $file = $request->file('image');
+
+        if (!$file) {
+            return response()->json(['error' => 'No file received'], 422);
+        }
+
+        $path = Storage::disk('s3')->putFile('image', $file , 'public');
+
+        if (!$path) {
+            return response()->json([
+                'status' => false,
+                'mmessage' => 'error ',
+                'path' => $path
+            ]);
+        }
+
+        $url = Storage::disk('s3')->url($path);
+
+        $business = Businesse::where('user_id', auth('api')->user()->id)->first();
+        $business->cover_url = $url;
+        $business->save();
+        return response()->json([
+            'status' => true,
+            'message' => 'image uploaded',
+            'url' => $url
+        ], 200);
+    }
+    public function update(Request $request)
+    {
         $validate = $request->validate([
             'name' => 'required|string',
             'phone' => 'required|string',
@@ -29,10 +66,11 @@ class BusinessController extends Controller
         return response()->json([
             'message' => 'Business Update',
             'business' => $business,
-        ],204);
+        ], 204);
     }
 
-    public function show(){
+    public function show()
+    {
         return response()->json([
             'status' => true,
             'data' => Auth::user()->business
