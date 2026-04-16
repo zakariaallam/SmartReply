@@ -22,7 +22,7 @@ class BusinessController extends Controller
             return response()->json(['error' => 'No file received'], 422);
         }
 
-        $path = Storage::disk('s3')->putFile('image', $file , 'public');
+        $path = Storage::disk('s3')->putFile('image', $file);
 
         if (!$path) {
             return response()->json([
@@ -69,11 +69,11 @@ class BusinessController extends Controller
         ], 204);
     }
 
-    public function show()
+    public function getBuinesses()
     {
         return response()->json([
             'status' => true,
-            'data' => Auth::user()->business
+            'data' => Businesse::all()
         ]);
     }
 }

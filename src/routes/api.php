@@ -24,7 +24,7 @@ Route::post('logout',[UserController::class,'logout'])->middleware('auth:api');
 Route::get('user',[UserController::class,'getUser'])->middleware('auth:api');
 
 // business 
-Route::get('business',[BusinessController::class,'show'])->middleware('auth:api');
+Route::get('business',[BusinessController::class,'getBuinesses']);
 Route::put('business',[BusinessController::class,'update'])->middleware('auth:api');
 Route::post('upload/image',[BusinessController::class,'uploadImage'])->middleware('auth:api');
 
