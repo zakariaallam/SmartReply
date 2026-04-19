@@ -76,4 +76,15 @@ class BusinessController extends Controller
             'data' => Businesse::all()
         ]);
     }
+
+    public function detailRocommand($id){
+        $business = Businesse::where('id',$id)->first();
+        $services = $business->services;
+
+        return response()->json([
+            'status' => true,
+            'business' => $business,
+            'services' => $services,
+        ]);
+     }
 }

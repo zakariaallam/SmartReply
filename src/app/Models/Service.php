@@ -19,4 +19,8 @@ class Service extends Model
     public function appointments(){
         return $this->hasMany(Appointment::class);
     }
+
+    public function teams(){
+        return $this->hasMany(Team::class);
+    }
 }

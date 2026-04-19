@@ -34,9 +34,15 @@ const routes = [
       { path: 'online-booking', name: 'business-booking', component: () => import('../views/business/BusinessOnlineBooking.vue') },
       { path: 'marketing/automations', component: () => import('../views/business/BusinessAutomations.vue') },
       { path: 'settings', component: () => import('../views/business/BusinessSettings.vue') },
-      { path: 'reports', component: () => import('../views/business/BusinessReports.vue') }
+      { path: 'reports', component: () => import('../views/business/BusinessReports.vue') },
     ]
   },
+
+  {
+    path: '/detail/:id',
+    name: 'detail',
+    component: ()=> import('@/views/details.vue')
+  }
 
 ]
 

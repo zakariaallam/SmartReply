@@ -201,7 +201,7 @@
                     </button>
 
                     <button @click="createService" :disabled="loading"
-                        class="px-6 py-2 bg-black text-white rounded-full">
+                        class=" cursor-pointer px-6 py-2 bg-black text-white rounded-full">
                         {{ loading ? 'Création...' : 'Créer' }}
                     </button>
                 </div>
@@ -233,6 +233,7 @@ const openServiceModal = () => {
 }
 
 const createService = async () => {
+    loading = true
     try {
         const res = await api.post('service', serviceForm.value)
         console.log(res)
@@ -242,6 +243,8 @@ const createService = async () => {
         showServiceModal.value = false
     } catch (e) {
         console.log(e);
+    }finally{
+        loading = false
     }
 }
 const getService = async () => {

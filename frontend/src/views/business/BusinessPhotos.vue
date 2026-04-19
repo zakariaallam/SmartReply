@@ -6,7 +6,7 @@
         <p class="text-gray-500">Ajoutez des photos pour montrer votre établissement et votre travail aux clients.</p>
       </div>
       <button @click="showUploadModal = true"
-        class="px-6 py-2.5 bg-black text-white rounded-full font-bold text-sm hover:bg-gray-800 transition-shadow">
+        class="cursor-pointer px-6 py-2.5 bg-black text-white rounded-full font-bold text-sm hover:bg-gray-800 transition-shadow">
         Ajouter des photos
       </button>
     </div>
@@ -81,12 +81,12 @@
                 class="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none focus:border-indigo-600 transition-colors">
             </div>
           </div>
-        </div>
+          </div>
         <div class="bg-gray-50 px-8 py-6 flex justify-end gap-3">
           <button @click="showUploadModal = false"
             class="px-6 py-2.5 font-bold text-sm text-gray-500 hover:text-gray-900 transition-colors">Annuler</button>
           <button @click="uploadImage" :disabled="uploading"
-            class="px-8 py-2.5 bg-black text-white rounded-full font-bold text-sm hover:bg-gray-800 disabled:opacity-50 shadow-lg">
+            class="cursor-pointer px-8 py-2.5 bg-black text-white rounded-full font-bold text-sm hover:bg-gray-800 disabled:opacity-50 shadow-lg">
             {{ uploading ? 'Envoi...' : 'Ajouter' }}
           </button>
         </div>
@@ -125,9 +125,7 @@ const handleNameImage = (e) => {
 // };
 
 const uploadImage = async () => {
-  if (!imageMinio.value) return
   uploading.value = true;
-
   try {
     
     const formData = new FormData();
@@ -138,10 +136,7 @@ const uploadImage = async () => {
     showUploadModal.value = false;
     imageMinio.value = '';
   } catch (err) {
-    if(axios.isAxiosError(err)){
-
       console.log(err.response.data);
-    }
   } finally {
     uploading.value = false;
   }

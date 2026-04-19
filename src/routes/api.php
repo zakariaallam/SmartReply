@@ -5,6 +5,7 @@ use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SocialiteController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WhatsAppController;
 use App\Models\Appointment;
@@ -28,12 +29,20 @@ Route::get('business',[BusinessController::class,'getBuinesses']);
 Route::put('business',[BusinessController::class,'update'])->middleware('auth:api');
 Route::post('upload/image',[BusinessController::class,'uploadImage'])->middleware('auth:api');
 
+// details 
+Route::get('detail/{id}',[BusinessController::class,'detailRocommand']);
+
 // service 
 Route::get('service',[ServiceController::class,'index'])->middleware('auth:api');
 Route::post('service',[ServiceController::class,'store'])->middleware('auth:api');
 Route::get('service/{id}',[ServiceController::class,'edit'])->middleware('auth:api');
 Route::put('service/{id}',[ServiceController::class,'update'])->middleware('auth:api');
 Route::delete('service/{id}',[ServiceController::class,'delete'])->middleware('auth:api');
+
+// Team 
+Route::post('team',[TeamController::class,'store'])->middleware('auth:api');
+Route::get('team',[TeamController::class,'getAllMembers'])->middleware('auth:api');
+Route::get('team/{id}',[TeamController::class,'getAllMembersdetail'])->middleware('auth:api');
 
 // message 
 Route::get('message',[MessageController::class,'index'])->middleware('auth:api');
