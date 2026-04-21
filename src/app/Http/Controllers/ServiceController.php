@@ -39,12 +39,12 @@ class ServiceController extends Controller
          ],201);
     }
 
-    public function edit($id){
-        $service = Service::findOrFail($id);
+    public function getService($id){
+        $business = Businesse::findOrFail($id);
 
       return response()->json([
         'message' => 'service pour modifier',
-        'service' => $service
+        'service' => $business->services
       ]);
     }
 

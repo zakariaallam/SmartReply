@@ -153,9 +153,11 @@
                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
              </div>
-             <button class="w-full py-4 bg-black text-white rounded-full font-bold text-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all mb-4">
+             <router-link :to="`/reservation/${businessId}`">
+             <button  class="cursor-pointer w-full py-4 bg-black text-white rounded-full font-bold text-lg hover:shadow-xl hover:scale-[1.02] active:scale-95 transition-all mb-4">
                 Réserver maintenant
              </button>
+             </router-link>
              <p class="text-center text-xs text-gray-400">Confirmation instantanée</p>
            </div>
         </div>
@@ -185,6 +187,7 @@ const tabs = ref([
   { id: 'apropos', label: 'À propos' },
 ])
 const activeTab = ref('prestations')
+const businessId = route.params.id
 
 const dayNames = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 

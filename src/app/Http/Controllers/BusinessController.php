@@ -53,7 +53,7 @@ class BusinessController extends Controller
             'working_hours' => 'required|array',
         ]);
 
-        $business = Auth::user()->business;
+        $business = auth('api')->user()->business;
 
         $business->update([
             'name' => $request->name,
@@ -69,11 +69,36 @@ class BusinessController extends Controller
         ], 204);
     }
 
-    public function getBuinesses()
+    public function updateWorkHours(Request $request){
+           $validate = $request->validate([
+            'working_hours' => 'required|array',
+        ]);
+
+        $business = auth('api')->user()->business;
+
+        $business->update([
+            'working_hours' => $request->working_hours
+        ]);
+
+        return response()->json([
+            'message' => 'Business Update',
+            'business' => $business,
+        ], 204);
+    }
+
+    public function getAllBuinesses()
     {
         return response()->json([
             'status' => true,
             'data' => Businesse::all()
+        ]);
+    }
+    public function getBuinesses($id)
+    {
+        $business = Businesse::where('id',$id)->first();
+        return response()->json([
+            'status' => true,
+            'data' => $business
         ]);
     }
 

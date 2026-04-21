@@ -42,6 +42,12 @@ const routes = [
     path: '/detail/:id',
     name: 'detail',
     component: ()=> import('@/views/details.vue')
+  },
+
+  {
+    path: '/reservation/:id',
+    name: 'reservation',
+    component: ()=> import('@/views/Resevation.vue')
   }
 
 ]
