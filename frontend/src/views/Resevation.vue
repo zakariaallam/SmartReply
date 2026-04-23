@@ -14,6 +14,9 @@
             <button :class="stip === 3 ? ' font-bold border-b-2 border-black pb-1' : ' text-gray-500'">
                 Hours
             </button>
+            <button :class="stip === 4 ? ' font-bold border-b-2 border-black pb-1' : ' text-gray-500'">
+                valider
+            </button>
         </div>
         <div class="max-w-6xl mx-auto flex gap-6">
             <div class="flex-1 min-w-0">
@@ -103,6 +106,16 @@
                 </div>
             </div>
 
+            <div v-show="stip == 4">
+                <h1 class="text-3xl font-bold mb-6">Vérifiez et confirmez</h1>
+
+                    <div class="flex justify-between items-center p-5 rounded-xl border mb-3 cursor-pointer transition">
+                        <div>
+                            <p class="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing.</p>
+                        </div>
+                    </div>
+                </div>
+
             <!-- RIGHT -->
             <div class="w-80 bg-white p-5 rounded-xl border h-fit sticky top-6">
                 <h3 class="font-semibold ">Milan Russian Beauty</h3>
@@ -131,21 +144,71 @@
 
                 <button :disabled="selected.length == 0" @click="handleStip"
                     :class="selected.length == 0 ? 'opacity-50 cursor-not-allowed mt-5 w-full bg-black text-white py-3 rounded-full font-medium' : 'cursor-pointer mt-5 w-full bg-black text-white py-3 rounded-full font-medium hover:opacity-90'">
-                    Continuez
+                    {{ stip == 4 ?'valider' : 'Continuez' }}
                 </button>
             </div>
 
         </div>
+        <div v-if="showAuthModal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-2xl p-8 w-[420px] relative shadow-xl">
+
+    <button 
+      @click="fermerModal()"
+      class=" cursor-pointer absolute top-4 right-4 text-gray-400 hover:text-black text-xl">
+      ✕
+    </button>
+
+    <h2 class="text-2xl font-semibold mb-2">
+      Connectez-vous ou inscrivez-vous
+    </h2>
+
+    <p class="text-gray-500 mb-6">
+      Connectez-vous ou inscrivez-vous pour finaliser votre réservation
+    </p>
+
+    <button @click="loginWhitProvider('facebook')"
+    class=" cursor-pointer w-full flex items-center justify-center gap-3 border rounded-full py-3 mb-3 hover:bg-gray-50">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" class="w-5 h-5">
+      Continuer avec Facebook
+    </button>
+
+    <button @click="loginWhitProvider('google')"
+    class=" cursor-pointer w-full flex items-center justify-center gap-3 border rounded-full py-3 mb-5 hover:bg-gray-50">
+      <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" class="w-5 h-5">
+      Continuer avec Google
+    </button>
+
+    <div class="flex items-center gap-3 mb-5">
+      <div class="flex-1 h-px bg-gray-200"></div>
+      <span class="text-gray-400 text-sm">ou</span>
+      <div class="flex-1 h-px bg-gray-200"></div>
+    </div>
+
+    <input 
+      type="email"
+      placeholder="Adresse e-mail"
+      class="w-full border rounded-lg px-4 py-3 mb-5 focus:outline-none focus:ring-2 focus:ring-black"
+    />
+
+    <button class="cursor-pointer w-full bg-black text-white py-3 rounded-full font-medium hover:opacity-90">
+      Continuez
+    </button>
+
+  </div>
+</div>
     </div>
 </template>
 
 <script setup>
 import { computed, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute , useRouter } from 'vue-router';
 import Navbar from '@/components/dashboard/Navbar.vue';
 import api from '@/services/api';
+import { authState } from '@/store';
 
 const route = useRoute()
+const router = useRoute()
+const showAuthModal = ref(false)
 const stip = ref(1);
 const services = ref([]);
 const teams = ref([]);
@@ -187,7 +250,35 @@ const fetchBusinessHours = async () => {
     }
 }
 
+const appoinetementStore = async () =>{
+    try{
+        const res = await api.post('appointement',{
+            date: selectedDay.value.date,
+            time: selectedDay.value.hour,
+            service_id: selected.value[0].id
+        })
+
+        console.log(res.data)
+    }catch(err){
+        console.log(err.response.data)
+    }
+}
+
+const fermerModal = () =>{
+    showAuthModal.value = false;
+    stip.value--
+}
+
 const handleStip = () => {
+    if(stip.value == 4){
+        if(authState.isLoggedIn == false){
+            showAuthModal.value = true
+            
+        }else{
+             appoinetementStore()
+             router.push('/')
+        }
+    }
     stip.value++
 }
 
@@ -250,6 +341,11 @@ const getday = (index) =>{
     let date = new Date();
     date.setDate(date.getDate() + index)
     return date
+}
+
+// OAuth 
+const loginWhitProvider = (provider) => {
+    window.location.href = `http://localhost:80/api/auth/redirect/${provider}`
 }
 onMounted(() => {
     fetchService();

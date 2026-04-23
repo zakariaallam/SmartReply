@@ -104,7 +104,7 @@
                   </svg>
                 </th>
                 <th scope="col" class="px-6 py-4 text-left text-sm font-bold text-gray-900 w-1/3">
-                  Coordonnées
+                  service
                 </th>
                 <th scope="col" class="px-6 py-4 text-left text-sm font-bold text-gray-900 w-1/4">
                   Rôle d'autorisation
@@ -150,22 +150,12 @@
                 <td class="px-6 py-5 whitespace-nowrap">
                   <div class="text-sm text-gray-500 font-medium">
                     <div v-if="member.description">{{ member.description }}</div>
-                    <div v-if="member.service_id">{{ member.service_id }}</div>
                     <!-- <span v-if="!member.email && !member.phone" class="text-gray-300">-</span> -->
                   </div>
                 </td>
-                <td class="px-6 py-5 whitespace-nowrap">
-                  <!-- <div class="text-sm text-gray-900 font-medium whitespace-pre-wrap">{{ getRoleName(member) }}</div> -->
-                </td>
+        
                 <td class="px-6 py-5 whitespace-nowrap text-right text-sm font-medium">
-                  <button
-                    class="px-3 py-1.5 bg-white border border-gray-200 rounded-full hover:bg-gray-50 flex items-center justify-between w-[90px] ml-auto transition-colors focus:ring-2 focus:ring-indigo-500">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-500" fill="none"
-                      viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
+                      <div v-if="member.description">{{ member.description }}</div>
                 </td>
               </tr>
             </tbody>
@@ -258,21 +248,9 @@ const ajouteMember = async () => {
     console.error(err.response.data)
   }finally{
     loading.value = false
+    showModal.value = false
   }
 }
-
-const getRoleName = (member) => {
-  // member.role object exists if mapped from resource, else check role_id, else default.
-  if (member.role && member.role.name) {
-    // Mock translations for prototype based on screenshots
-    if (member.role.name.toLowerCase() === 'owner') return 'Propriétaire';
-    if (member.role.name.toLowerCase() === 'staff') return 'Membre de l\'équipe';
-    return member.role.name;
-  }
-  // Fallbacks
-  if (member.user_id) return 'Propriétaire'; // simplistic fallback logic
-  return 'Aucun accès';
-};
 
 onMounted(() => {
   fetchTeamMembers();

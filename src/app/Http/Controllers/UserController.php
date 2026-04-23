@@ -29,6 +29,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
+            'phone' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -41,6 +42,7 @@ class UserController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
+                'phone' => $request->phone,
                 'password' => Hash::make($request->password),
                 'role_id' => $role->id,
             ]);
@@ -58,6 +60,7 @@ class UserController extends Controller
         $request->validate([
             'first_name' => 'required|string|min:3',
             'last_name' => 'required|string|min:3',
+            'phone' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'business_name' => 'required|string|min:3'
@@ -74,6 +77,7 @@ class UserController extends Controller
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
                 'email' => $request->email,
+                'phone' => $request->phone,
                 'password' => Hash::make($request->password),
                 'role_id' => $role->id,
             ]);
@@ -114,7 +118,15 @@ class UserController extends Controller
             'message' => 'login successfully',
             'user' => auth('api')->user(),
             'token' => $token
-        ], 200);
+        ], 200)->cookie(
+                 'token',
+                 $token,
+                 60,
+                 '/',
+                 null,
+                 false,
+                 true
+             );
     }
 
     public function logout()

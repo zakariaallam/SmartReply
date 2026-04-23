@@ -15,4 +15,24 @@ class AppointmentController extends Controller
             'data' => $appointement
         ]);
     }
+
+    public function store(Request $request){
+        $user = auth('api')->user();
+        
+        $validate = $request->validate([
+            'date' => 'required|date',
+            'time' => 'required',
+            'service_id' => 'required|integer',
+        ]);
+
+        $validate['user_id'] = $user->id;
+        $validate['client_phone'] = $user->phone;
+        $appointement = Appointment::create($validate);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'create Appointement successfilly',
+            'appointement' => $appointement
+        ],201);
+    }
 }

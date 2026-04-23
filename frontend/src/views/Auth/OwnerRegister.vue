@@ -48,7 +48,7 @@
       </div>
 
       <!-- Numéro de portable -->
-      <!-- <div class="flex flex-col text-left">
+      <div class="flex flex-col text-left">
         <label class="font-bold text-[14px] mb-1">Numéro de portable *</label>
         <div class="flex space-x-3">
           <div class="relative w-[100px]">
@@ -57,25 +57,8 @@
             </select>
             <svg class="w-4 h-4 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </div>
-          <input v-model="phone" type="tel" class="flex-grow border border-gray-200 rounded-lg px-4 py-3 outline-none focus:border-black transition text-[15px]" />
+          <input v-model="form.phone" type="tel" class="flex-grow border border-gray-200 rounded-lg px-4 py-3 outline-none focus:border-black transition text-[15px]" />
         </div>
-      </div> -->
-
-      <!-- Checkboxes -->
-      <div class="mt-8 space-y-4 text-left">
-        <label class="flex items-start space-x-3 cursor-pointer">
-          <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-300 text-black focus:ring-black" />
-          <span class="text-[13px] text-black font-medium leading-tight">
-            J'accepte la <a href="#" class="text-blue-600 hover:underline">Politique de confidentialité</a>, les <a href="#" class="text-blue-600 hover:underline">Conditions d'utilisation</a> et les <a href="#" class="text-blue-600 hover:underline">Conditions de service</a>
-          </span>
-        </label>
-
-        <label class="flex items-start space-x-3 cursor-pointer">
-          <input type="checkbox" class="mt-1 w-5 h-5 rounded border-gray-300 text-black focus:ring-black" />
-          <span class="text-[13px] text-black font-medium leading-tight">
-            J'accepte de recevoir des notifications commerciales m'informant des offres et des dernières nouvelles de SmartReplay
-          </span>
-        </label>
       </div>
 
       <!-- Submit -->
@@ -94,7 +77,7 @@ import api from '@/services/api'
 
 const form = reactive({
   business_name: '',
-  // phone: '',
+  phone: '',
   first_name: '',
   last_name: '',
   email: '',

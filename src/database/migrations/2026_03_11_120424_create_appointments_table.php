@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('service_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->date('date');
             $table->time('time');
             $table->string('client_phone');
-            $table->enum('status',['pending','done']);
+            $table->enum('status',['pending','done'])->default('pending');
             $table->timestamps();
         });
     }

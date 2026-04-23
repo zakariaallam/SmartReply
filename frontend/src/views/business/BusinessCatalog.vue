@@ -13,16 +13,6 @@
                     class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50">Abonnements</a>
                 <a href="#"
                     class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50">Produits</a>
-
-                <div class="pt-6 pb-2 px-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider">Inventaire
-                </div>
-                <a href="#"
-                    class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50">Inventaires</a>
-                <a href="#"
-                    class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50">Commandes
-                    de stock</a>
-                <a href="#"
-                    class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-gray-700 hover:bg-gray-50">Fournisseurs</a>
             </nav>
         </div>
 
@@ -47,7 +37,7 @@
                     </button>
 
                     <button @click="openServiceModal"
-                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 w-full text-left">
+                        class="cursor-pointer flex items-center gap-3 px-4 py-3 hover:bg-gray-50 w-full text-left">
                         ➕ Service
                     </button>
                 </div>
@@ -200,8 +190,14 @@
                         Annuler
                     </button>
 
-                    <button @click="createService" :disabled="loading"
+                    <!-- <button @click="createService" :disabled="false"
                         class=" cursor-pointer px-6 py-2 bg-black text-white rounded-full">
+                        {{ loading ? 'Création...' : 'Créer' }}
+                    </button> -->
+                    <button @click="createService" :disabled="!serviceForm.name || !serviceForm.price"
+                        class=" px-6 py-2 rounded-full text-white" :class="(!serviceForm.name || !serviceForm.price )
+                            ? 'bg-gray-400 cursor-not-allowed'
+                            : 'cursor-pointer bg-black hover:bg-gray-800'">
                         {{ loading ? 'Création...' : 'Créer' }}
                     </button>
                 </div>
@@ -233,7 +229,7 @@ const openServiceModal = () => {
 }
 
 const createService = async () => {
-    loading = true
+    loading.value = true
     try {
         const res = await api.post('service', serviceForm.value)
         console.log(res)
@@ -243,8 +239,8 @@ const createService = async () => {
         showServiceModal.value = false
     } catch (e) {
         console.log(e);
-    }finally{
-        loading = false
+    } finally {
+        loading.value = false
     }
 }
 const getService = async () => {
@@ -257,6 +253,6 @@ const getService = async () => {
     }
 }
 
-onMounted(()=>{getService()})
+onMounted(() => { getService() })
 
 </script>

@@ -9,27 +9,14 @@
         </div>
 
         <!-- Right User Navigation -->
-        <div class="flex items-center gap-4">
-          <button class="bg-[#6b4cff] hover:bg-indigo-600 text-white px-4 py-2 rounded-full font-medium text-sm transition-colors flex items-center gap-2">
-            Poursuivre la configuration 
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-          
-          <button class="text-gray-500 hover:text-gray-700">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
-          </button>
-          
-          <button class="text-gray-500 hover:text-gray-700">
+        <div class="flex items-center gap-4">  
+          <button class="cursor-pointer text-gray-500 hover:text-gray-700">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
             </svg>
           </button>
           
-          <button class="text-gray-500 hover:text-gray-700 relative">
+          <button class="cursor-pointer text-gray-500 hover:text-gray-700 relative">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
@@ -38,7 +25,7 @@
 
           <!-- Profile Dropdown Container -->
           <div class="relative ml-2">
-            <button @click="showProfileMenu = !showProfileMenu" class="w-9 h-9 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center">
+            <button @click="showProfileMenu = !showProfileMenu" class="cursor-pointer w-9 h-9 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center">
                {{ userInitials }}
             </button>
             
@@ -52,16 +39,6 @@
                   <div class="font-bold">{{ userName }}</div>
                   <div class="text-gray-400 text-xs">Aucun avis pour le moment</div>
                 </div>
-              </div>
-              
-              <div class="bg-yellow-50 rounded-lg p-3 mb-3 border border-yellow-100 cursor-pointer hover:bg-yellow-100 transition-colors flex justify-between items-center group">
-                <div>
-                  <div class="font-bold text-gray-900">Vérifiez votre adresse e-mail</div>
-                  <div class="text-gray-600 text-xs">Sécurisez votre compte</div>
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400 group-hover:text-gray-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
               </div>
 
               <ul class="space-y-1">

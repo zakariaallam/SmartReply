@@ -152,8 +152,8 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const activeDropdown = ref(null) // null, 'treatments', 'location', 'time'
 const treatmentSearch = ref('')
-const locationSearch = ref('Casablanca, Casablanca-Settat')
-const selectedTime = ref('Heure')
+const locationSearch = ref('')
+const selectedTime = ref('')
 
 const categories = [
   { id: 'tous', name: 'Tous', count: null },

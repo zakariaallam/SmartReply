@@ -1,18 +1,20 @@
 <template>
   <div class="w-full text-center">
-    <h1 class="text-[22px] font-bold text-[#0E0F12] mb-3">zakariaApp pour les clients</h1>
+    <h1 class="text-[22px] font-bold text-[#0E0F12] mb-3">SmartReplay pour les clients</h1>
     <p class="text-[14px] text-gray-500 leading-snug mb-8">
       Créez un compte ou connectez-vous pour réserver et gérer vos rendez-vous.
     </p>
 
     <div class="space-y-4 mb-8">
-      <button class="w-full flex items-center justify-center border border-gray-200 hover:border-gray-300 rounded-full py-3 transition hover:shadow-sm">
+      <button @click="loginWithGoogle('facebook')"
+       class="cursor-pointer w-full flex items-center justify-center border border-gray-200 hover:border-gray-300 rounded-full py-3 transition hover:shadow-sm">
         <svg class="w-5 h-5 text-blue-600 mr-3" viewBox="0 0 24 24" fill="currentColor"><path d="M17.525 8h-3v-1.5c0-1.036.634-1.5 1.5-1.5h1.5V2h-3c-1.933 0-3.5 1.567-3.5 3.5V8h-2v3h2v11h3V11h2.5l.5-3z"></path></svg>
         <span class="font-bold text-[15px]">Continuer avec Facebook</span>
       </button>
 
-      <button @click="loginWithGoogle" class="w-full flex items-center justify-center border border-gray-200 hover:border-gray-300 rounded-full py-3 transition hover:shadow-sm">
-        <svg class="w-5 h-5 mr-3" viewBox="0 0 24 24" fill="currentColor"><path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-4v3.09C3.515 21.3 7.565 24 12.255 24z"/><path fill="#FBBC05" d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.62h-4c-.83 1.66-1.31 3.5-1.31 5.38 0 1.88.48 3.72 1.31 5.38l4-3.09z"/><path fill="#EA4335" d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0 7.565 0 3.515 2.7 1.525 6.62l4 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
+      <button @click="loginWithGoogle('google')"
+       class="cursor-pointer w-full flex items-center justify-center border border-gray-200 hover:border-gray-300 rounded-full py-3 transition hover:shadow-sm">
+        <svg class=" w-5 h-5 mr-3" viewBox="0 0 24 24" fill="currentColor"><path fill="#4285F4" d="M23.745 12.27c0-.79-.07-1.54-.19-2.27h-11.3v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58v3h3.86c2.26-2.09 3.56-5.17 3.56-8.82z"/><path fill="#34A853" d="M12.255 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.13 0-5.78-2.11-6.73-4.96h-4v3.09C3.515 21.3 7.565 24 12.255 24z"/><path fill="#FBBC05" d="M5.525 14.29c-.25-.72-.38-1.49-.38-2.29s.13-1.57.38-2.29V6.62h-4c-.83 1.66-1.31 3.5-1.31 5.38 0 1.88.48 3.72 1.31 5.38l4-3.09z"/><path fill="#EA4335" d="M12.255 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C18.205 1.19 15.495 0 12.255 0 7.565 0 3.515 2.7 1.525 6.62l4 3.09c.95-2.85 3.6-4.96 6.73-4.96z"/></svg>
         <span class="font-bold text-[15px]">Continuer avec Google</span>
       </button>
     </div>
@@ -69,10 +71,10 @@ const error = ref('')
 
 const router = useRouter()
 
-const loginWithGoogle = () => {
+const loginWithGoogle = (provider) => {
   try{
     // const google = await api.get('/auth/redirect/google')
-   window.location.href = "http://localhost/api/auth/redirect/google "
+   window.location.href = `http://localhost:80/api/auth/redirect/${provider}`
   }catch(err){
     console.log(err)
   }

@@ -21,7 +21,7 @@ class SocialiteController extends Controller
         
        $user = User::where('email',$socialUser->getEmail())->first();
        if(!$user){
-        $role = Role::where('name','owner')->first();
+        $role = Role::where('name','client')->first();
          $user =  User::create([
             'first_name' => $fullName[0],
             'last_name' => $fullName[1],
@@ -30,14 +30,17 @@ class SocialiteController extends Controller
             'role_id' => $role->id
           ]);
        }
-       $token = $user->createToken('token')->plainTextToken;
+       $token = auth('api')->login($user);
 
-       return redirect('http://localhost:5173');
-   //     return response()->json([
-   //      'status' => true,
-   //      'message' => 'login successfully',
-   //      'user' => $user,
-   //      'token' => $token
-   //     ]);
-   //  }
+       return redirect('http://localhost:5173')
+              ->cookie(
+                 'token',
+                 $token,
+                 60,
+                 '/',
+                 null,
+                 false,
+                 true
+             );
+}
 }

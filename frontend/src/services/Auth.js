@@ -2,13 +2,13 @@ import api from "@/services/api";
 import { authState } from "@/store";
 
 export const initAuth = async () => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
 
-    if (!token) {
-        authState.isLoggedIn = false;
-        authState.user = null;
-        return;
-    }
+    // if (!token) {
+    //     authState.isLoggedIn = false;
+    //     authState.user = null;
+    //     return;
+    // }
 
     try {
         const res = await api.get("/user");
@@ -33,7 +33,7 @@ export const login = async (Credential) => {
         const res = await api.post('/login', Credential)
         console.log(res.data)
 
-        localStorage.setItem('token',res.data.token)
+        // localStorage.setItem('token',res.data.token)
         authState.user = res.data.user
         authState.isLoggedIn = true
 
@@ -54,7 +54,7 @@ export const logout = async () =>{
         console.log(e)
     }
 
-    localStorage.removeItem('token')
+    // localStorage.removeItem('token')
     authState.user = null
     authState.isLoggedIn = false
 }
