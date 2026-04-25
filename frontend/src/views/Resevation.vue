@@ -207,7 +207,7 @@ import api from '@/services/api';
 import { authState } from '@/store';
 
 const route = useRoute()
-const router = useRoute()
+const router = useRouter()
 const showAuthModal = ref(false)
 const stip = ref(1);
 const services = ref([]);

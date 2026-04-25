@@ -1,7 +1,7 @@
 <template>
   <nav class="flex items-center justify-between px-4 md:px-8 py-4 bg-white sticky top-0 z-50 shadow-sm">
     <div class="flex items-center">
-      <router-link to="/" class="text-3xl font-bold tracking-tighter cursor-pointer lowercase no-underline text-[#0E0F12]">ZakariaAPP</router-link>
+      <router-link to="/" class="text-3xl font-bold tracking-tighter cursor-pointer lowercase no-underline text-[#0E0F12]">SmartReplay</router-link>
     </div>
     
     <div class="hidden md:flex flex-1 mx-8 border border-gray-200 rounded-full items-center p-1" v-if="authState.isLoggedIn">

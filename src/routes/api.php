@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SocialiteController;
 use App\Http\Controllers\TeamController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\WhatsAppController;
 use App\Models\Appointment;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (Request $request) {
@@ -27,6 +29,7 @@ Route::get('user',[UserController::class,'getUser'])->middleware('jwt.cookie')->
 
 // business 
 Route::get('business',[BusinessController::class,'getAllBuinesses']);
+Route::get('businessByUser/{id}',[BusinessController::class,'getBuinessesByUser']);
 Route::get('business/{id}',[BusinessController::class,'getBuinesses']);
 Route::put('business',[BusinessController::class,'update'])->middleware('jwt.cookie')->middleware('auth:api');
 Route::patch('business',[BusinessController::class,'updateWorkHours']);
@@ -59,5 +62,14 @@ Route::get('/auth/redirect/{provide}',[SocialiteController::class,'redirect']);
 Route::get('/auth/callback/{provider}',[SocialiteController::class,'callback']);
 
 // Appointment
-Route::get('/appointement',[AppointmentController::class,'index']);
+Route::get('/appointement',[AppointmentController::class,'getAllAppointementByUser']);
+// Route::get('/appointement',[AppointmentController::class,'index']);
 Route::post('/appointement',[AppointmentController::class,'store'])->middleware('jwt.cookie')->middleware('auth:api');
+
+// Notification 
+Route::get('/notification',[NotificationController::class,'showNotification'])->middleware('jwt.cookie')->middleware('auth:api');
+// broadcast 
+// Broadcast::routes([
+//     'middleware' => ['jwt.cookie' , 'auth:api']
+// ]);
+

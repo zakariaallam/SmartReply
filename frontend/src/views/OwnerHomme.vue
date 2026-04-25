@@ -104,7 +104,7 @@
             Aucun historique de rendez-vous récents.
           </div>
 
-          <div v-for="apt in dashboardData.recent_appointments" :key="apt.id" class="py-4 flex gap-4">
+          <!-- <div v-for="apt in dashboardData.recent_appointments" :key="apt.id" class="py-4 flex gap-4">
             <div class="w-10 text-center">
                <div class="text-xl font-bold">{{ formatDateDay(apt.start_datetime) }}</div>
                <div class="text-[10px] text-gray-500 font-semibold uppercase">{{ formatMonth(apt.start_datetime) }}</div>
@@ -123,7 +123,7 @@
                  {{ apt.client?.user?.first_name }} {{ apt.client?.user?.last_name }}, avec {{ apt.booked_by?.first_name || 'Équipe' }}
               </div>
             </div>
-          </div>
+          </div> -->
           
         </div>
       </div>
@@ -199,35 +199,35 @@ const dashboardData = ref({
 
 const loading = ref(true);
 
-const fetchDashboard = async () => {
-    loading.value = true;
-    try {
-        const response = await api.get('/business/dashboard');
-        dashboardData.value = response.data;
-    } catch (error) {
-        console.error('Failed to fetch dashboard data:', error);
-    } finally {
-        loading.value = false;
-    }
-};
+// const fetchDashboard = async () => {
+//     loading.value = true;
+//     try {
+//         const response = await api.get('/business/dashboard');
+//         dashboardData.value = response.data;
+//     } catch (error) {
+//         console.error('Failed to fetch dashboard data:', error);
+//     } finally {
+//         loading.value = false;
+//     }
+// };
 
-const formatDateDay = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).getDate().toString().padStart(2, '0');
-};
+// const formatDateDay = (dateString) => {
+//     if (!dateString) return '';
+//     return new Date(dateString).getDate().toString().padStart(2, '0');
+// };
 
-const formatMonth = (dateString) => {
-    if (!dateString) return '';
-    return new Date(dateString).toLocaleString('fr-FR', { month: 'short' });
-};
+// const formatMonth = (dateString) => {
+//     if (!dateString) return '';
+//     return new Date(dateString).toLocaleString('fr-FR', { month: 'short' });
+// };
 
-const formatDateTime = (dateString) => {
-    if (!dateString) return '';
-    const d = new Date(dateString);
-    return `${d.toLocaleString('fr-FR', { weekday: 'short' })}, ${d.getDate()} ${d.toLocaleString('fr-FR', { month: 'short' })} ${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`;
-};
+// const formatDateTime = (dateString) => {
+//     if (!dateString) return '';
+//     const d = new Date(dateString);
+//     return `${d.toLocaleString('fr-FR', { weekday: 'short' })}, ${d.getDate()} ${d.toLocaleString('fr-FR', { month: 'short' })} ${d.getHours()}:${d.getMinutes().toString().padStart(2, '0')}`;
+// };
 
-onMounted(() => {
-    fetchDashboard();
-});
+// onMounted(() => {
+//     fetchDashboard();
+// });
 </script>

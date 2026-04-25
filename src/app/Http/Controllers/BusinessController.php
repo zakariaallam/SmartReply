@@ -95,7 +95,7 @@ class BusinessController extends Controller
     }
     public function getBuinesses($id)
     {
-        $business = Businesse::where('id',$id)->first();
+        $business = Businesse::where('id',(int) $id)->first();
         return response()->json([
             'status' => true,
             'data' => $business
@@ -112,4 +112,13 @@ class BusinessController extends Controller
             'services' => $services,
         ]);
      }
+
+   public function getBuinessesByUser($id)
+    {
+        $business = Businesse::where('user_id',$id)->first();
+        return response()->json([
+            'status' => true,
+            'business' => $business
+        ]);
+    }  
 }
