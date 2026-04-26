@@ -1,13 +1,15 @@
 <template>
   <div class="relative group">
     <!-- User Avatar Button -->
-    <button class="bg-[#F2F2FF] text-blue-600 font-bold border border-[#EBEBF4] rounded-full px-3 py-2 flex items-center space-x-2 transition cursor-pointer">
+    <button @click="open = !open"
+       class="bg-[#F2F2FF] text-blue-600 font-bold border border-[#EBEBF4] rounded-full px-3 py-2 flex items-center space-x-2 transition cursor-pointer">
       <span class="text-[13px] tracking-wide">{{ userInitials }}</span>
       <svg class="w-3.5 h-3.5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
     </button>
 
     <!-- Dropdown Menu -->
-    <div class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition duration-200 z-50 overflow-hidden text-left">
+    <div v-if="open" 
+        class="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-100 transition duration-200 z-50 overflow-hidden text-left">
       <div class="p-4 bg-white border-b border-gray-100">
         <h4 class="font-bold text-[15px] text-[#0E0F12] truncate">{{ userName }}</h4>
       </div>
@@ -66,11 +68,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed , ref} from 'vue'
 import { authState } from '@/store'
 import { logout } from '@/services/Auth'
 import { useRouter } from 'vue-router'
 
+const open = ref(false)
 const router = useRouter()
 const userName = computed(() => {
   if (!authState.user) return ''

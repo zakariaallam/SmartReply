@@ -118,11 +118,12 @@ class UserController extends Controller
             'status' => true,
             'message' => 'login successfully',
             'user' => auth('api')->user(),
+            'role' => auth('api')->user()->role,
             'token' => $token
         ], 200)->cookie(
                  'token',
                  $token,
-                 60,
+                 1440,
                  '/',
                  null,
                  false,

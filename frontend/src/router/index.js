@@ -3,7 +3,7 @@ import DashboardView from '@/views/DashboardView.vue'
 import { authState } from '@/store'
 
 const routes = [
-  { path: '/', component: DashboardView ,meta: {role: 'client'}},
+  { path: '/', component: DashboardView },
  
   { 
     path: '/auth', 
@@ -42,14 +42,12 @@ const routes = [
     path: '/detail/:id',
     name: 'detail',
     component: ()=> import('@/views/details.vue'),
-    meta: {role: 'client'}
   },
 
   {
     path: '/reservation/:id',
     name: 'reservation',
     component: ()=> import('@/views/Resevation.vue'),
-    meta: {role: 'client'}
   }
 
 ]
@@ -63,23 +61,22 @@ router.beforeEach((to, from, next) => {
   const isLoggedIn = authState.isLoggedIn
   const user = authState.user
 
-  // ❌ ماشي logged
   if (to.meta.requiresAuth && !isLoggedIn) {
     return next('/auth/login')
   }
 
-  // ❌ logged وباغي يرجع login
-  if (to.path === '/auth/login' && isLoggedIn) {
-    return next(user.role === 'owner' ? '/business/home' : '/')
+  if (to.meta.role === 'owner') {
+    if (!isLoggedIn) {
+      return next('/auth/login')
+    }
+
+    if (user?.role !== 'owner') {
+      return next('/') 
+    }
   }
 
-  // ❌ check role
-  if (to.meta.role && user?.role !== to.meta.role) {
-    if (user.role === 'owner') {
-      return next('/business/home')
-    } else {
-      return next('/')
-    }
+  if (to.path === '/auth/login' && isLoggedIn) {
+    return next(user?.role === 'owner' ? '/business/home' : '/')
   }
 
   next()

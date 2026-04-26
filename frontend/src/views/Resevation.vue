@@ -255,7 +255,9 @@ const appoinetementStore = async () =>{
         const res = await api.post('appointement',{
             date: selectedDay.value.date,
             time: selectedDay.value.hour,
-            service_id: selected.value[0].id
+            service_id: selected.value[0].id,
+            total_price: total.value
+
         })
 
         console.log(res.data)

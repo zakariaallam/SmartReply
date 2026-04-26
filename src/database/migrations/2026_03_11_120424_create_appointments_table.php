@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->date('date');
             $table->time('time');
+            $table->integer('total_price');
             $table->string('client_phone');
             $table->enum('status',['pending','done'])->default('pending');
             $table->timestamps();

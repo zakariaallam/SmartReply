@@ -3,37 +3,34 @@
     <Navbar />
     <Hero />
 
-    <div class="mt-6" >
-      <SectionCarousel title="Reprendre rendez-vous" v-if="authState.isLoggedIn">
-        <div v-for="appointement in reprendres.appointments" :key="appointement.id">
-    <img 
-      :src="image"
-      class="w-40 h-40 object-cover"
-    />
-    <div class="p-4 flex flex-col justify-between flex-1">
+    <div class="mt-6">
+      <SectionCarousel title="Reprendre rendez-vous" v-if="reprendres.length != 0 && authState.isLoggedIn">
+        <div v-for="(data, idx) in reprendres" :key="idx.id">
+          <img :src="data.business?.cover_url" class="w-40 h-40 object-cover" />
+          <div class="p-4 flex flex-col justify-between flex-1">
 
-      <div>
-        <h3 class="font-semibold text-lg text-gray-900">
-          {{ reprendres.business?.name }}
-        </h3>
+            <div>
+              <h3 class="font-semibold text-lg text-gray-900">
+                {{ data.business?.name }}
+              </h3>
 
-        <p class="text-gray-700 mt-1">
-          {{ appointement.date }} a {{ appointement.time }}
-        </p>
+              <p class="text-gray-700 mt-1">
+                {{ data.appointment.date }} a {{ data.appointment.time }}
+              </p>
 
-        <!-- <p class="text-gray-400 text-sm mt-1 truncate">
-          {{ price }} • {{ details }}
-        </p> -->
-      </div>
-    </div>
-    </div>
+              <p class="text-gray-400 text-sm mt-1 truncate">
+               {{ data.appointment.total_price }}
+               </p>
+            </div>
+          </div>
+        </div>
       </SectionCarousel>
 
       <!-- 4. Récemment consulté -->
       <!-- <SectionCarousel title="Récemment consulté">
          <VenueCard v-bind="trends[0]" />
          <VenueCard v-bind="trends[1]" />
-      </SectionCarousel>
+      </SectionCarousel> -->
 
       <!-- 5. Recommandés -->
       <div class="bg-gradient-to-b from-[#FFF2FD]/80 to-white pt-6 pb-2">
@@ -70,7 +67,7 @@
             :key="'rec-'+index"
             v-bind="venue"
           /> -->
-          </router-link>
+            </router-link>
           </div>
         </SectionCarousel>
 
@@ -121,14 +118,11 @@ import Hero from '@/components/dashboard/Hero.vue';
 import Navbar from '@/components/dashboard/Navbar.vue';
 import SectionCarousel from '@/components/SectionCarousel.vue';
 import api from '@/services/api';
-import { onMounted, ref } from 'vue'
 import { authState } from '@/store';
+import { onMounted, ref } from 'vue'
 
 const recommendeds = ref([])
-const reprendres = ref({
-  business: null,
-  appointments: []
-})
+const reprendres = ref([])
 
 const fetshRecommended = async () => {
   try {
@@ -142,8 +136,7 @@ const fetshReprendre = async () => {
   try {
     const res = await api.get('/appointement')
     console.log(res.data.data)
-    reprendres.business.value = res.data.business
-    reprendres.appointments.value = res.data.appointments
+    reprendres.value = res.data.data
   } catch (err) {
     console.log(err.response.data)
   }
